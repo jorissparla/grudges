@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import NewGrudge from './NewGrudge';
-import Grudges from './Grudges';
-import './Application.css';
+import React, { Component } from "react";
+import { withAuthenticator } from "aws-amplify-react";
+import NewGrudge from "./NewGrudge";
+import Grudges from "./Grudges";
+import "./Application.css";
 
 class Application extends Component {
   state = {
-    grudges: [],
+    grudges: []
   };
 
   addGrudge = grudge => {
@@ -14,14 +15,12 @@ class Application extends Component {
 
   removeGrudge = grudge => {
     this.setState({
-      grudges: this.state.grudges.filter(other => other.id !== grudge.id),
+      grudges: this.state.grudges.filter(other => other.id !== grudge.id)
     });
   };
 
   toggle = grudge => {
-    const othergrudges = this.state.grudges.filter(
-      other => other.id !== grudge.id,
-    );
+    const othergrudges = this.state.grudges.filter(other => other.id !== grudge.id);
     const updatedGrudge = { ...grudge, avenged: !grudge.avenged };
     this.setState({ grudges: [updatedGrudge, ...othergrudges] });
   };
@@ -51,4 +50,4 @@ class Application extends Component {
   }
 }
 
-export default Application;
+export default withAuthenticator(Application);
